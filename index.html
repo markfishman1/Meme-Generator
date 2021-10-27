@@ -9,7 +9,7 @@
     <title>Meme-Generator</title>
 </head>
 
-<body>
+<body onload="onInit()">
 
     <header class="main-header flex space-between">
         <div class="main-logo">
@@ -21,9 +21,13 @@
         </ul>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </header>
-    <main class="main-content main-layout">
-        <div class="searchbar-container flex"></div>
 
+    <main class="editor-container flex">
+        <section class="canvas">
+            <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
+        </section>
+
+        <div class="control-box"></div>
     </main>
 
 
@@ -33,7 +37,61 @@
 
 
 
-    <canvas id="my-canvas" height="500" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
+
+    <!-- HOME PAGE -->
+    <main class="main-content main-layout flex flex-column">
+        <div class="searchbar-nav-container flex space-between">
+            <div class="searchbar">
+                <input type="text" placeholder="Search" width="100%">
+                <button class="search-btn">P</button>
+            </div>
+            <div class="words-bar flex space-between">
+                <div class="words-container">Words Words Words Words</div>
+                <button class="more-btn">More</button>
+            </div>
+
+        </div>
+        <div class="memes-container grid-container">
+            <article class="card">
+                <img src="imgs-square/1.jpg" class="card" onclick="editPicture('1')">
+            </article>
+            <article class="card">
+                <img src="imgs-square/2.jpg" class="card" onclick="editPicture('2')">
+            </article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+            <article class="card">card</article>
+        </div>
+    </main>
+
+
+
+
+
+
+
+
 
 
 

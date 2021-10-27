@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 /* TYPOGRAPHY */
@@ -28,23 +30,28 @@ html {
 body {
     font-size: 1.3125rem;
     background-color: #22252c;
-    margin: 0;
 }
 
 /* HEADER */
 
 .main-layout {
-    width: 1243px;
+    margin-top: 16px;
+    margin-left: 14px;
+    margin-right: 23px;
+    width: 98%;
+    border-radius: 10px;
+    background-color: #383b42;
 }
 
 .main-header {
+    width: 99%;
     border-radius: 50px;
     background-color: #5970c1;
     ;
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
     margin-top: 15px;
     margin-left: 7px;
-    margin-right: 15px;
+    margin-right: 22px;
 }
 
 .main-logo {
@@ -70,6 +77,75 @@ body {
     padding-left: 50px;
 }
 
+/* MAIN-CONTENT-GALLERY */
+
+.main-content {}
+
+.searchbar {
+    position: relative;
+    background-color: wheat;
+    width: 40%
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+}
+
+.searchbar-nav-container {
+    background-color: rgba(255, 255, 255, 0.39);
+    margin-left: 25px;
+    margin-right: 13px;
+    margin-top: 25px;
+}
+
+.words-bar {
+    align-items: flex-end;
+    /* width: 50%; */
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(145, 136, 145);
+    border: 2px solid black;
+    height: 173px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 80px));
+    grid-gap: 26px 30px
+}
+
+.memes-container {
+    margin-left: 57px;
+    margin-top: 128px;
+}
+
+/* EDITOR */
+
+.editor-container {
+    margin-top: 20px;
+    margin-right: 95px;
+    margin-left: 95px;
+    justify-content: space-between;
+}
+
+.control-box {
+    background-color: #383b42;
+    height: 546px;
+    width: 500px;
+    border-radius: 30px;
+}
+
+#my-canvas {
+    border-radius: 30px;
+}
+
 /* HELPERS */
 
 .clean-list {
@@ -84,6 +160,10 @@ body {
     display: flex;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .space-between {
     justify-content: space-between;
 }
@@ -94,4 +174,8 @@ body {
 
 .justify-center {
     justify-content: center;
+}
+
+#my-canvas {
+    background-color: white;
 }
