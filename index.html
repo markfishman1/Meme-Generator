@@ -22,12 +22,13 @@
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </header>
 
-    <main class="editor-container flex">
+    <main class="editor-container flex" id="editor-container">
         <section class="canvas">
             <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
         </section>
 
-        <div class="control-box"></div>
+        <div class="control-box">
+        </div>
     </main>
 
 
@@ -42,7 +43,7 @@
     <main class="main-content main-layout flex flex-column">
         <div class="searchbar-nav-container flex space-between">
             <div class="searchbar">
-                <input type="text" placeholder="Search" width="100%">
+                <input type="text" placeholder="Search">
                 <button class="search-btn">P</button>
             </div>
             <div class="words-bar flex space-between">
@@ -52,36 +53,6 @@
 
         </div>
         <div class="memes-container grid-container">
-            <article class="card">
-                <img src="imgs-square/1.jpg" class="card" onclick="editPicture('1')">
-            </article>
-            <article class="card">
-                <img src="imgs-square/2.jpg" class="card" onclick="editPicture('2')">
-            </article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
-            <article class="card">card</article>
         </div>
     </main>
 
@@ -99,7 +70,7 @@
 
 
     <script src="js/main.js"></script>
-    <script src="js/controller.js"></script>
+    <script src="js/meme-controller.js"></script>
 </body>
 
 </html>

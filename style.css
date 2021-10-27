@@ -21,6 +21,15 @@
     src: url(/fonts/Poppins-SemiBold.ttf);
 }
 
+@font-face {
+    font-family: impcat;
+    src: url(/fonts/impact.ttf);
+}
+
+.impact {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 html {
     font-family: poppins;
     line-height: 0.809;
@@ -78,8 +87,6 @@ body {
 }
 
 /* MAIN-CONTENT-GALLERY */
-
-.main-content {}
 
 .searchbar {
     position: relative;
@@ -144,6 +151,16 @@ body {
 
 #my-canvas {
     border-radius: 30px;
+}
+
+.line-input {
+    margin-top: 24px;
+    margin-left: 40px;
+    margin-right: 40px;
+    width: 420px;
+    border-radius: 28px;
+    height: 55px;
+    text-align: center;
 }
 
 /* HELPERS */
