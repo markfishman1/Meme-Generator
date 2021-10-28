@@ -54,6 +54,7 @@ function addTouchListeners() {
 //Event Listener Functions:
 function onDown(ev) {
     const pos = getEvPos(ev)
+    checkClickOutOfRange(pos)
     if (!isTextClicked(pos)) return
     setTextDrag(true)
     gStartPos = pos
@@ -109,17 +110,17 @@ function renderControlBox() {
 function getImputTxt() {
 
     renderCanvas();
-
+    var lines = getLines()
     var txt = document.querySelector('#txt').value;
     gFirstLineTxtLength = txt.length
     saveText(txt)
     var meme = getgMeme();
     var currLine = meme.lines[gSelectedLine]
     var secondLine = meme.lines[gSecondLine]
-    onDrawText(currLine.txt, currLine.posX, currLine.posY, currLine.size, currLine.fill, currLine.stroke, currLine.align);
-    onDrawText(secondLine.txt, secondLine.posX, secondLine.posY, secondLine.size, secondLine.fill, secondLine.stroke, secondLine.align);
+    onDrawText(currLine.txt, currLine.posX, currLine.posY, currLine.size, currLine.fill, currLine.stroke, currLine.align, lines.selected);
+    onDrawText(secondLine.txt, secondLine.posX, secondLine.posY, secondLine.size, secondLine.fill, secondLine.stroke, secondLine.align, lines.second);
     // }
-    console.log(gFirstLineTxtLength);
+    // console.log(gFirstLineTxtLength);
 }
 
 function renderCanvas() {
@@ -147,24 +148,29 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
-function onDrawText(text, x, y, size = 40, fill = 'white', stroke = 'black', align) {
+function onDrawText(text, x, y, size = 40, fill = 'white', stroke = 'black', align, idx) {
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = stroke;
     gCtx.fillStyle = fill;
     gCtx.font = `${size}px impcat`
     gCtx.textAlign = align
-    var txtLength = gCtx.measureText(text).width;
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
+    var txtLength = gCtx.measureText(text).width;
+    console.log('txtLength', txtLength);
+    updateTextLengths(txtLength, idx);
+    // var meme = getgMeme();
+    // console.log(meme);
+    // drawRect(meme.lines[idx].posX, meme.lines[idx].posY - 40, txtLength, meme.lines[idx].size + 10);
 }
 
-function drawSelectedFrame(x, y, width, height) {
+function drawRect(x, y, width, height) {
     gCtx.beginPath();
     gCtx.lineWidth = 3;
     gCtx.rect(x, y, width, height);
     gCtx.fillStyle = 'rgba(225,225,225,0)';
     gCtx.fillRect(x, y, width, height);
-    gCtx.strokeStyle = 'white';
+    gCtx.strokeStyle = 'black';
     gCtx.stroke();
 }
 
