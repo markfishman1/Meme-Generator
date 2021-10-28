@@ -90,8 +90,15 @@ body {
 
 .searchbar {
     position: relative;
-    background-color: wheat;
+    /* background-color: wheat; */
     width: 40%
+}
+
+.searchbar input {
+    background-color: #22252c;
+    border-radius: 29px;
+    width: 541px;
+    height: 58px;
 }
 
 .search-btn {
@@ -100,23 +107,45 @@ body {
 }
 
 .searchbar-nav-container {
-    background-color: rgba(255, 255, 255, 0.39);
+    /* background-color: rgba(255, 255, 255, 0.39); */
     margin-left: 25px;
     margin-right: 13px;
     margin-top: 25px;
 }
 
 .words-bar {
-    align-items: flex-end;
+    /* align-items: flex-end; */
     /* width: 50%; */
+}
+
+.words {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.words-container {
+    width: 536px;
+    height: 50px;
+    background-color: #87898d;
+    border-radius: 25px;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+}
+
+.more-btn {
+    width: 92px;
+    height: 36px;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    border-radius: 18px;
+    background-color: #fefefe;
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
 }
 
 .card {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(145, 136, 145);
-    border: 2px solid black;
+    /* background-color: rgb(145, 136, 145); */
+    /* border: 1px solid rgb(80, 98, 99); */
     height: 173px;
     width: 200px;
     border-radius: 10px;
@@ -131,6 +160,7 @@ body {
 .memes-container {
     margin-left: 57px;
     margin-top: 128px;
+    margin-bottom: 50px;
 }
 
 /* EDITOR */
@@ -161,6 +191,81 @@ body {
     border-radius: 28px;
     height: 55px;
     text-align: center;
+}
+
+.line-generator {
+    margin-top: 10px
+}
+
+.line-generator button:not(:first-child) {
+    margin-left: 15px;
+}
+
+.line-generator button {
+    width: 57px;
+    height: 57px;
+}
+
+.switch-btn {
+    background-color: #43b2cf;
+}
+
+.add-btn {
+    background-color: #3fdb57;
+}
+
+.delete-btn {
+    background-color: #d92c37;
+}
+
+.line-editor-grid {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 55px 55px 55px 55px 55px;
+    grid-template-rows: 51px 51px 51px 51px 51px;
+    background-color: #19a59f;
+    border-radius: 15px;
+    gap: 19px 32px;
+    margin-top: 15px;
+    padding-top: 10px;
+    width: 445px;
+    height: 145px;
+}
+
+.control-box button, input, select {
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    border-radius: 10px;
+}
+
+.download-container button:not(:first-child) {
+    margin-left: 15px;
+}
+
+.download-container button {
+    margin-top: 20px;
+    width: 200px;
+    height: 51px;
+}
+
+.download-btn {
+    background-color: #1e7cd3;
+}
+
+.share-btn {
+    background-color: #8f44bb;
+}
+
+#fonts {
+    grid-column: 1/4;
+}
+
+#fill {
+    grid-column: 4/5;
+}
+
+#stroke {
+    grid-row: 2/2;
+    grid-column: 5/6;
 }
 
 /* HELPERS */
@@ -195,4 +300,20 @@ body {
 
 #my-canvas {
     background-color: white;
+}
+
+/* Grid */
+
+.grid {
+    display: grid;
+}
+
+/* DISPLAYS */
+
+.block {
+    display: block;
+}
+
+.none {
+    display: none;
 }

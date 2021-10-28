@@ -16,32 +16,11 @@
             <img src="LOGO/LOGO.png" alt="" class="header-logo">
         </div>
         <ul class="main-nav flex align-center justify-center clean-list">
-            <li><a href="#">Gallery</a></li>
+            <li><a href="#" onclick="showGallery()">Gallery</a></li>
             <li><a href="#">About</a></li>
         </ul>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
     </header>
-
-    <main class="editor-container flex" id="editor-container">
-        <section class="canvas">
-            <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
-        </section>
-
-        <div class="control-box">
-            <!-- <input type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
-            <button class="switch-btn">switch lines</button>
-            <button class="add-btn">ADD LINE</button>
-            <button class="delete-btn">delete Line</button> -->
-        </div>
-    </main>
-
-
-
-
-
-
-
-
 
     <!-- HOME PAGE -->
     <main class="main-content main-layout flex flex-column">
@@ -51,7 +30,11 @@
                 <button class="search-btn">P</button>
             </div>
             <div class="words-bar flex space-between">
-                <div class="words-container">Words Words Words Words</div>
+                <div class="words-container">
+                    <p class="words">
+                        Words Words Words Words
+                    </p>
+                </div>
                 <button class="more-btn">More</button>
             </div>
 
@@ -59,7 +42,38 @@
         <div class="memes-container grid-container">
         </div>
     </main>
+    <!-- EDITOR PAGE -->
+    <main class="editor-container flex none" id="editor-container">
+        <section class="canvas">
+            <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
+        </section>
 
+        <div class="control-box">
+            <!-- <input type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
+            <div class="line-generator flex justify-center">
+                <button class="switch-btn">switch lines</button>
+                <button class="add-btn">ADD LINE</button>
+                <button class="delete-btn">delete Line</button>
+            </div>    
+            <div class="line-editor-grid justify-center">
+                <button>A+</button>
+                <button>A-</button>
+                <button>L</button>
+                <button>C</button>
+                <button>M</button>
+                <select name="fonts" id="fonts">
+                    <option value="impact">Impcat</option>
+                    <option value="arial">Arial</option>
+                </select>    
+                <input type="color" id="fill" name="fill" value="#e66465">
+                <label for="fill"></label>
+                <input type="color" id="stroke" name="stroke" value="#e66465">
+                <label for="stroke"></label> -->
+
+
+        </div>
+        </div>
+    </main>
 
 
 
