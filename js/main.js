@@ -80,6 +80,8 @@ function getEvPos(ev) {
 function renderControlBox() {
     var strHTML = `      <input name="input" type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
     <div class="line-generator flex justify-center">
+    <button class="moveup-btn" onclick="onMoveLineUp()">Move Up Line</button>
+    <button class="movedown-btn" onclick="onMoveLineDown()">Move Down Line</button>
         <button class="switch-btn" onclick="onSwitchLines()">switch lines</button>
         <button class="add-btn" onclick=onAddLine()>ADD LINE</button>
         <button class="delete-btn">delete Line</button>
@@ -90,7 +92,7 @@ function renderControlBox() {
         <button onclick="onAlignTxtLeft()">L</button>
         <button onclick="onAlignTxtCenter()">C</button>
         <button onclick="onAlignTxtRight()">R</button>
-        <select name="fonts" id="fonts">
+        <select name="fonts" id="fonts" onchange="onSetFont(this.value)">
             <option value="impact">Impcat</option>
             <option value="arial">Arial</option>
         </select>
@@ -100,32 +102,57 @@ function renderControlBox() {
         <label for="stroke"></label>
     </div>
         <div class="download-container flex justify-center">
-        <button class="download-btn">Download</button>
-        <button class="share-btn">Share</button>
+        <a href="#" class="download-btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download</a>
+        <button class="upload-btn" onclick="uploadImg()">Upload</button>
+        <a class="share-btn none" href="#" title="Share on Facebook" target="_blank">
+        Share   
+        </a>
     </div>
 `
+    {/* <button class="download-btn">Download</button> */ }
     document.querySelector('.control-box').innerHTML = strHTML;
 }
 
+function drawRect(x, y, width, height) {
+    gCtx.beginPath();
+    gCtx.lineWidth = 3;
+    gCtx.rect(x, y, width, height);
+    gCtx.fillStyle = 'rgba(225,225,225,0)';
+    gCtx.fillRect(x, y, width, height);
+    gCtx.strokeStyle = 'black';
+    gCtx.stroke();
+    // console.log(x, y, width, height);
+}
 function getImputTxt() {
-
     renderCanvas();
-    var lines = getLines()
     var txt = document.querySelector('#txt').value;
-    gFirstLineTxtLength = txt.length
     saveText(txt)
-    var meme = getgMeme();
-    var currLine = meme.lines[gSelectedLine]
-    var secondLine = meme.lines[gSecondLine]
-    onDrawText(currLine.txt, currLine.posX, currLine.posY, currLine.size, currLine.fill, currLine.stroke, currLine.align, lines.selected);
-    onDrawText(secondLine.txt, secondLine.posX, secondLine.posY, secondLine.size, secondLine.fill, secondLine.stroke, secondLine.align, lines.second);
-    // }
-    // console.log(gFirstLineTxtLength);
+    renderText();
+    markText();
+}
+
+function markText() {
+    var lines = getLines()
+    var selected = lines.selected;
+    var second = lines.second;
+    var framePos = getFramePos();
+    drawRect(framePos[selected].x, framePos[selected].y, framePos[selected].width, framePos[selected].height);
+
 }
 
 function renderCanvas() {
     var currMemeId = getCurrMemeId();
     drawImg(currMemeId);
+}
+function renderText() {
+    var lines = getLines()
+    var selected = lines.selected;
+    var second = lines.second;
+    var meme = getgMeme();
+    var currLine = meme.lines[selected]
+    var secondLine = meme.lines[second]
+    onDrawText(currLine.txt, meme.lines[selected].font, currLine.posX, currLine.posY, currLine.size, currLine.fill, currLine.stroke, currLine.align, lines.selected);
+    onDrawText(secondLine.txt, meme.lines[second].font, secondLine.posX, secondLine.posY, secondLine.size, secondLine.fill, secondLine.stroke, secondLine.align, lines.second);
 }
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
@@ -148,11 +175,11 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
-function onDrawText(text, x, y, size = 40, fill = 'white', stroke = 'black', align, idx) {
+function onDrawText(text, font, x, y, size = 40, fill = 'white', stroke = 'black', align, idx,) {
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = stroke;
     gCtx.fillStyle = fill;
-    gCtx.font = `${size}px impcat`
+    gCtx.font = `${size}px ${font}`
     gCtx.textAlign = align
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
@@ -163,15 +190,17 @@ function onDrawText(text, x, y, size = 40, fill = 'white', stroke = 'black', ali
     // console.log(meme);
     // drawRect(meme.lines[idx].posX, meme.lines[idx].posY - 40, txtLength, meme.lines[idx].size + 10);
 }
-
-function drawRect(x, y, width, height) {
-    gCtx.beginPath();
-    gCtx.lineWidth = 3;
-    gCtx.rect(x, y, width, height);
-    gCtx.fillStyle = 'rgba(225,225,225,0)';
-    gCtx.fillRect(x, y, width, height);
-    gCtx.strokeStyle = 'black';
-    gCtx.stroke();
+function onMoveLineUp() {
+    moveLineUp();
+    renderCanvas();
+    renderText();
+    markText();
+}
+function onMoveLineDown() {
+    moveLineDown();
+    renderCanvas();
+    renderText();
+    markText();
 }
 
 function editPicture(count) {
@@ -198,11 +227,6 @@ function drawImg(count) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
 }
 
-function onAddLine() {
-    console.log('hey');
-    addLine();
-
-}
 function hideGallery() {
     document.querySelector('.main-content').style.display = 'none';
 }
@@ -212,6 +236,14 @@ function showGallery() {
     document.querySelector('.editor-container').style.display = 'none';
 }
 
+
+//CONTROL BOX BUTTONS FUNCTIONS:
+
+function onAddLine() {
+    console.log('hey');
+    addLine();
+
+}
 function onSwitchLines() {
     switchLines();
 }
@@ -243,15 +275,48 @@ function onChangeStrokeColor(ev) {
 
 function onAlignTxtLeft() {
     alignTxtleft();
-    getImputTxt();
+    renderCanvas();
+    renderText();
+    markText();
+    // getImputTxt();
 
 }
 function onAlignTxtRight() {
-    alignTxtRight();
-    getImputTxt();
+    var canvas = document.getElementById('my-canvas');
+    var width = canvas.width;
+    alignTxtRight(width);
+    renderCanvas();
+    renderText();
+    markText();
+    // getImputTxt();
 
 }
 function onAlignTxtCenter() {
-    alignTxtCenter();
-    getImputTxt();
+    var canvas = document.getElementById('my-canvas');
+    var width = canvas.width;
+    alignTxtCenter(width / 2);
+    renderCanvas();
+    renderText();
+    markText();
+    // getImputTxt();
+}
+function onSetFont(val) {
+    console.log(val);
+    setFont(val);
+    renderCanvas();
+    renderText();
+    markText();
+}
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL();
+    console.log(data);
+    elLink.href = data;
+    elLink.download = 'meme'
+}
+
+function toggleMenu() {
+    console.log('hey');
+
+    document.body.classList.toggle('menu-open');
 }

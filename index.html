@@ -10,7 +10,7 @@
 </head>
 
 <body onload="onInit()">
-
+    <div class="main-screen" onclick="toggleMenu()"></div>
     <header class="main-header flex space-between">
         <div class="main-logo">
             <img src="LOGO/LOGO.png" alt="" class="header-logo">
@@ -24,10 +24,10 @@
 
     <!-- HOME PAGE -->
     <main class="main-content main-layout flex flex-column">
-        <div class="searchbar-nav-container flex space-between">
+        <div class="searchbar-nav-container flex">
             <div class="searchbar">
-                <input type="text" placeholder="Search">
-                <button class="search-btn">P</button>
+                <input type="text" placeholder="Search" id="searchbar">
+                <!-- <button class="search-btn">P</button> -->
             </div>
             <div class="words-bar flex space-between">
                 <div class="words-container">
@@ -37,58 +37,24 @@
                 </div>
                 <button class="more-btn">More</button>
             </div>
-
         </div>
         <div class="memes-container grid-container">
         </div>
     </main>
     <!-- EDITOR PAGE -->
-    <main class="editor-container flex none" id="editor-container">
+    <main class="editor-container flex none justify-center" id="editor-container">
         <section class="canvas">
             <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
         </section>
 
         <div class="control-box">
-            <!-- <input type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
-            <div class="line-generator flex justify-center">
-                <button class="switch-btn">switch lines</button>
-                <button class="add-btn">ADD LINE</button>
-                <button class="delete-btn">delete Line</button>
-            </div>    
-            <div class="line-editor-grid justify-center">
-                <button>A+</button>
-                <button>A-</button>
-                <button>L</button>
-                <button>C</button>
-                <button>M</button>
-                <select name="fonts" id="fonts">
-                    <option value="impact">Impcat</option>
-                    <option value="arial">Arial</option>
-                </select>    
-                <input type="color" id="fill" name="fill" value="#e66465">
-                <label for="fill"></label>
-                <input type="color" id="stroke" name="stroke" value="#e66465">
-                <label for="stroke"></label> -->
-
-
         </div>
         </div>
     </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="js/main.js"></script>
     <script src="js/meme-controller.js"></script>
+    <script src="js/upload-service.js"></script>
 </body>
 
 </html>
