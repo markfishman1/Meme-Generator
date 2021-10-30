@@ -176,6 +176,7 @@ function addLine() {
 }
 
 function switchLines() {
+    if (gRowsCount !== 2) return;
     renderCanvas();
     renderText();
     if (gSelectedLine === 1) {

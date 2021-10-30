@@ -243,9 +243,28 @@ body {
     margin-left: 15px;
 }
 
+.editor-container button {
+    border-radius: 10px;
+}
+
+.line-editor-grid button {
+    background-color: rgba(219, 215, 215, 0.966);
+}
+
 .line-generator button {
     width: 57px;
     height: 57px;
+    /* border-radius: 10px; */
+}
+
+/* EDITOR BUTTONS */
+
+.moveup-btn {
+    background-color: rgb(255, 196, 0);
+}
+
+.movedown-btn {
+    background-color: dimgrey;
 }
 
 .switch-btn {

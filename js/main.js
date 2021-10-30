@@ -80,8 +80,8 @@ function getEvPos(ev) {
 function renderControlBox() {
     var strHTML = `      <input name="input" type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
     <div class="line-generator flex justify-center">
-    <button class="moveup-btn" onclick="onMoveLineUp()">Move Up Line</button>
-    <button class="movedown-btn" onclick="onMoveLineDown()">Move Down Line</button>
+        <button class="moveup-btn" onclick="onMoveLineUp()">Move Up Line</button>
+        <button class="movedown-btn" onclick="onMoveLineDown()">Move Down Line</button>
         <button class="switch-btn" onclick="onSwitchLines()">switch lines</button>
         <button class="add-btn" onclick=onAddLine()>ADD LINE</button>
         <button class="delete-btn">delete Line</button>
