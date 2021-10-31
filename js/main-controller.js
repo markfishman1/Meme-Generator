@@ -1,18 +1,21 @@
 'use strict'
 
+//main-controller
 var gElCanvas;
 var gCtx;
+var gStartPos;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
 
 function onInit() {
     gElCanvas = document.getElementById('my-canvas');
     gCtx = gElCanvas.getContext('2d');
-    renderMemes();
-    renderControlBox();
+    renderGallery();
+    // renderControlBox();
     // resizeCanvas()
     addListeners();
 }
 
-function renderMemes() {
+function renderGallery() {
     var imgs = getImgs();
     var strHTML = imgs.map(img => {
         var str =
@@ -32,7 +35,8 @@ function resizeCanvas() {
 }
 
 function addListeners() {
-    document.getElementById('txt').addEventListener('input', getImputTxt);
+    //oninput attribute
+    document.getElementById('txt').addEventListener('input', getInputTxt);
     addMouseListeners()
     addTouchListeners()
     // window.addEventListener('resize', () => {
@@ -41,15 +45,15 @@ function addListeners() {
     // })
 }
 function addMouseListeners() {
-    // gElCanvas.addEventListener('mousemove')
-    gElCanvas.addEventListener('mousedown', onDown)
-    // gElCanvas.addEventListener('mouseup')
+    gElCanvas.addEventListener('mousemove', onMove);
+    gElCanvas.addEventListener('mousedown', onDown);
+    gElCanvas.addEventListener('mouseup', onUp);
 }
 
 function addTouchListeners() {
-    // gElCanvas.addEventListener('touchmove')
-    // gElCanvas.addEventListener('touchstart')
-    // gElCanvas.addEventListener('touchend')
+    // gElCanvas.addEventListener('touchmove', onMove)
+    // gElCanvas.addEventListener('touchstart', onDown)
+    // gElCanvas.addEventListener('touchend', onUp)
 }
 //Event Listener Functions:
 function onDown(ev) {
@@ -58,7 +62,26 @@ function onDown(ev) {
     if (!isTextClicked(pos)) return
     setTextDrag(true)
     gStartPos = pos
-    // document.body.style.cursor = 'grabbing'
+    // document.body.style.cursor = 'grabbing';
+}
+function onUp() {
+    setTextDrag(false);
+    // document.body.style.cursor = 'pointer';
+
+}
+
+function onMove() {
+    // console.log('hey');
+    // var meme = getMeme();
+    // if (meme.lines[meme.selectedLineIdx].isDrag) {
+    //     const pos = getEvPos();
+    //     const dx = pos.x - gStartPos.x
+    //     const dy = pos.y - gStartPos.y
+    //     gStartPos = pos;
+    //     onMoveText(dx, dy);
+    //     renderCanvas();
+    // }
+
 }
 
 function getEvPos(ev) {
@@ -77,42 +100,6 @@ function getEvPos(ev) {
     return pos
 }
 
-function renderControlBox() {
-    var strHTML = `      <input name="input" type="text" id="txt" placeholder="${gMeme.lines[0].txt}" class="line-input">
-    <div class="line-generator flex justify-center">
-        <button class="moveup-btn" onclick="onMoveLineUp()">Move Up Line</button>
-        <button class="movedown-btn" onclick="onMoveLineDown()">Move Down Line</button>
-        <button class="switch-btn" onclick="onSwitchLines()">switch lines</button>
-        <button class="add-btn" onclick=onAddLine()>ADD LINE</button>
-        <button class="delete-btn">delete Line</button>
-    </div>
-    <div class="line-editor-grid justify-center">
-        <button onclick="onIncreaseSize()">A+</button>
-        <button onclick="onDecreaseSize()">A-</button>
-        <button onclick="onAlignTxtLeft()">L</button>
-        <button onclick="onAlignTxtCenter()">C</button>
-        <button onclick="onAlignTxtRight()">R</button>
-        <select name="fonts" id="fonts" onchange="onSetFont(this.value)">
-            <option value="impact">Impcat</option>
-            <option value="arial">Arial</option>
-        </select>
-        <input type="color" id="fill" name="fill" value="#e66465" onchange="onChangeTxtColor(this)">
-        <label for="fill"></label>
-        <input type="color" id="stroke" name="stroke" value="#e66465" onchange="onChangeStrokeColor(this)">
-        <label for="stroke"></label>
-    </div>
-        <div class="download-container flex justify-center">
-        <a href="#" class="download-btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download</a>
-        <button class="upload-btn" onclick="uploadImg()">Upload</button>
-        <a class="share-btn none" href="#" title="Share on Facebook" target="_blank">
-        Share   
-        </a>
-    </div>
-`
-    {/* <button class="download-btn">Download</button> */ }
-    document.querySelector('.control-box').innerHTML = strHTML;
-}
-
 function drawRect(x, y, width, height) {
     gCtx.beginPath();
     gCtx.lineWidth = 3;
@@ -123,36 +110,32 @@ function drawRect(x, y, width, height) {
     gCtx.stroke();
     // console.log(x, y, width, height);
 }
-function getImputTxt() {
-    renderCanvas();
+function getInputTxt() {
     var txt = document.querySelector('#txt').value;
     saveText(txt)
-    renderText();
-    markText();
+    renderCanvas();
+
 }
 
 function markText() {
-    var lines = getLines()
-    var selected = lines.selected;
-    var second = lines.second;
-    var framePos = getFramePos();
-    drawRect(framePos[selected].x, framePos[selected].y, framePos[selected].width, framePos[selected].height);
-
+    var meme = getMeme();
+    var selectedLine = meme.selectedLineIdx;
+    drawRect(gMeme.lines[selectedLine].posX - 5, gMeme.lines[selectedLine].posY - gMeme.lines[selectedLine].size, gMeme.lines[selectedLine].txtLength + 10, gMeme.lines[selectedLine].size + 15);
 }
 
 function renderCanvas() {
     var currMemeId = getCurrMemeId();
     drawImg(currMemeId);
+    renderText();
+    markText();
 }
+
 function renderText() {
-    var lines = getLines()
-    var selected = lines.selected;
-    var second = lines.second;
-    var meme = getgMeme();
-    var currLine = meme.lines[selected]
-    var secondLine = meme.lines[second]
-    onDrawText(currLine.txt, meme.lines[selected].font, currLine.posX, currLine.posY, currLine.size, currLine.fill, currLine.stroke, currLine.align, lines.selected);
-    onDrawText(secondLine.txt, meme.lines[second].font, secondLine.posX, secondLine.posY, secondLine.size, secondLine.fill, secondLine.stroke, secondLine.align, lines.second);
+    var meme = getMeme();
+    meme.lines.forEach(function (line, idx) {
+        onDrawText(line.txt, line.font, line.posX, line.posY, line.size, line.fill, line.stroke, line.align, idx)
+    })
+
 }
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
@@ -175,7 +158,7 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     context.fillText(line, x, y);
 }
 
-function onDrawText(text, font, x, y, size = 40, fill = 'white', stroke = 'black', align, idx,) {
+function onDrawText(text, font, x, y, size = 40, fill = 'white', stroke = 'black', align, idx) {
     gCtx.lineWidth = 2;
     gCtx.strokeStyle = stroke;
     gCtx.fillStyle = fill;
@@ -183,36 +166,26 @@ function onDrawText(text, font, x, y, size = 40, fill = 'white', stroke = 'black
     gCtx.textAlign = align
     gCtx.fillText(text, x, y);
     gCtx.strokeText(text, x, y);
+    console.log('text', text);
+    console.log(idx);
     var txtLength = gCtx.measureText(text).width;
     console.log('txtLength', txtLength);
     updateTextLengths(txtLength, idx);
-    // var meme = getgMeme();
-    // console.log(meme);
-    // drawRect(meme.lines[idx].posX, meme.lines[idx].posY - 40, txtLength, meme.lines[idx].size + 10);
-}
-function onMoveLineUp() {
-    moveLineUp();
-    renderCanvas();
-    renderText();
-    markText();
-}
-function onMoveLineDown() {
-    moveLineDown();
-    renderCanvas();
-    renderText();
-    markText();
 }
 
-function editPicture(count) {
+
+
+//onSelectImg
+function editPicture(selectedImgId) {
     document.querySelector('.editor-container').style.display = 'flex';
-    gCurrMemeId = count;
-    gMeme.selectedImgId = count;
-    // changeFont()
+    gCurrMemeId = selectedImgId;
+    gMeme.selectedImgId = selectedImgId;
     hideGallery();
-    drawImg(count);
+    drawImg(selectedImgId);
 }
 
 function changeFont() {
+    //לשנות את הFONT במודל נתונים ולרנדר את הקנבאס
     console.log('hello');
     var elContainer = document.getElementById('editor-container');
     elContainer.classList.add('impact');
@@ -223,6 +196,9 @@ function drawImg(count) {
     img.src = `imgs-square/${count}.jpg`
     // img.onload = () => {
     //     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
+    //     renderCanvas();
+    //     renderText();
+    //     markText();
     // };
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height);
 }
@@ -238,74 +214,59 @@ function showGallery() {
 
 
 //CONTROL BOX BUTTONS FUNCTIONS:
+//לשלב בין הפונקציות
+function onMoveLine(val) {
+    moveLine(val);
+    renderCanvas();
+}
 
 function onAddLine() {
     console.log('hey');
     addLine();
+    renderText();
 
 }
 function onSwitchLines() {
     switchLines();
 }
-
-function onIncreaseSize() {
-    increaseSize();
-    getImputTxt();
-
-}
-
-function onDecreaseSize() {
-    decreaseSize();
-    getImputTxt();
-
+//COMBINE TO ONE FUNCTION
+function onChangeTextSize(val) {
+    changeTextSize(val);
+    renderCanvas();
 }
 
 function onChangeTxtColor(ev) {
     var color = ev.value;
     console.log(color);
     changeTxtColor(color);
-    getImputTxt();
+    renderCanvas();
+
 }
+
 function onChangeStrokeColor(ev) {
     var strokeColor = ev.value;
     console.log(strokeColor);
     changeStrokeColor(strokeColor);
-    getImputTxt();
-}
-
-function onAlignTxtLeft() {
-    alignTxtleft();
     renderCanvas();
-    renderText();
-    markText();
-    // getImputTxt();
-
 }
-function onAlignTxtRight() {
+
+function onAlignText(val) {
     var canvas = document.getElementById('my-canvas');
     var width = canvas.width;
-    alignTxtRight(width);
+    alignText(val, width, width / 2);
     renderCanvas();
-    renderText();
-    markText();
-    // getImputTxt();
+}
 
-}
-function onAlignTxtCenter() {
-    var canvas = document.getElementById('my-canvas');
-    var width = canvas.width;
-    alignTxtCenter(width / 2);
-    renderCanvas();
-    renderText();
-    markText();
-    // getImputTxt();
-}
-function onSetFont(val) {
+function onChangeFont(val) {
     console.log(val);
-    setFont(val);
+    changeFont(val);
     renderCanvas();
-    renderText();
-    markText();
+}
+
+function onDeleteLine() {
+    console.log('hey');
+    deleteLine();
+    renderCanvas();
 }
 
 function downloadCanvas(elLink) {

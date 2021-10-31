@@ -24,10 +24,10 @@
 
     <!-- HOME PAGE -->
     <main class="main-content main-layout flex flex-column">
-        <div class="searchbar-nav-container flex">
+        <!-- <div class="searchbar-nav-container flex">
             <div class="searchbar">
                 <input type="text" placeholder="Search" id="searchbar">
-                <!-- <button class="search-btn">P</button> -->
+                <button class="search-btn">P</button>
             </div>
             <div class="words-bar flex space-between">
                 <div class="words-container">
@@ -36,24 +36,53 @@
                     </p>
                 </div>
                 <button class="more-btn">More</button>
-            </div>
+            </div> -->
         </div>
         <div class="memes-container grid-container">
         </div>
     </main>
+
     <!-- EDITOR PAGE -->
     <main class="editor-container flex none justify-center" id="editor-container">
-        <section class="canvas">
-            <canvas id="my-canvas" height="546" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
-        </section>
-
-        <div class="control-box">
+        <div class="canvas">
+            <canvas id="my-canvas" height="500" width="500" style=" outline:1px solid rgb(0, 109, 128)"></canvas>
         </div>
+        <div class="control-box">
+            <input name="input" type="text" id="txt" placeholder="Lets Create Memes" class="line-input">
+            <div class="line-generator flex justify-center">
+                <button class="moveup-btn" onclick="onMoveLine(-5)">Move Up</button>
+                <button class="movedown-btn" onclick="onMoveLine(5)">Move Down</button>
+                <button class="switch-btn" onclick="onSwitchLines()">Switch Lines</button>
+                <button class="add-btn" onclick="onAddLine()">ADD Line</button>
+                <button class="delete-btn" onclick="onDeleteLine()">Delete Line</button>
+            </div>
+            <div class="line-editor-grid justify-center">
+                <button onclick="onChangeTextSize(+2)">A+</button>
+                <button onclick="onChangeTextSize(-2)">A-</button>
+                <button onclick="onAlignText('left')">L</button>
+                <button onclick="onAlignText('center')">C</button>
+                <button onclick="onAlignText('right')">R</button>
+                <select name="fonts" id="fonts" onchange="onChangeFont(this.value)">
+                    <option value="impact">Impcat</option>
+                    <option value="arial">Arial</option>
+                </select>
+                <input type="color" id="fill" name="fill" value="#e66465" onchange="onChangeTxtColor(this)">
+                <label for="fill"></label>
+                <input type="color" id="stroke" name="stroke" value="#e66465" onchange="onChangeStrokeColor(this)">
+                <label for="stroke"></label>
+            </div>
+            <div class="download-container flex justify-center">
+                <a href="#" class="download-btn" onclick="downloadCanvas(this)" download="my-img.jpg">Download</a>
+                <button class="upload-btn" onclick="uploadImg()">Upload</button>
+                <a class="share-btn none" href="#" title="Share on Facebook" target="_blank">
+                    Share
+                </a>
+            </div>
         </div>
     </main>
 
-    <script src="js/main.js"></script>
-    <script src="js/meme-controller.js"></script>
+    <script src="js/main-controller.js"></script>
+    <script src="js/main-service.js"></script>
     <script src="js/upload-service.js"></script>
 </body>
 
